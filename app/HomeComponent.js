@@ -197,7 +197,7 @@ export const HomeComponent = () => {
               Inventory Items
             </Typography>
           </Box>
-          <Stack spacing={2} height="300px" spacing={2} overflow={'auto'}>
+          <Stack spacing={2} height="300px" overflow={'auto'}>
             {filteredInventory.map(({ name, quantity }) => (
               <Box
                 key={name}

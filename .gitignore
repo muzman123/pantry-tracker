@@ -1,0 +1,58 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Build output
+dist/
+build/
+out/
+*.tgz
+
+# Testing
+coverage/
+*.lcov
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.*.local
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Miscellaneous
+*.pem
+*.key
+*.crt
+*.sublime-workspace
+*.sublime-project
+
+# TypeScript
+*.tsbuildinfo
+
+# Next.js
+.next/
+*.next/
+
+# Firebase
+.firebase/
+.firebaserc
+
+# MacOS specific
+*.DS_Store
+
+# Windows specific
+Thumbs.db

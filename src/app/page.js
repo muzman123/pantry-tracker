@@ -13,11 +13,6 @@ import {
   getDoc,
 } from 'firebase/firestore'
 
-interface InventoryItem {
-  name: string;
-  [key: string]: any; // This makes the interface flexible to accept additional properties
-}
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -37,14 +32,14 @@ const style = {
 
 export default function Home() {
   // We'll add our component logic here
-  const [inventory, setInventory] = useState<InventoryItem[]>([])
+  const [inventory, setInventory] = useState([])
   const [open, setOpen] = useState(false)
   const [itemName, setItemName] = useState('')
 
 const updateInventory = async () => {
   const snapshot = query(collection(firestore, 'inventory'))
   const docs = await getDocs(snapshot)
-  const inventoryList: InventoryItem[] = []
+  const inventoryList = []
   docs.forEach((doc) => {
     inventoryList.push({ name: doc.id, ...doc.data() })
   })
@@ -55,7 +50,7 @@ useEffect(() => {
   updateInventory()
 }, [])
 
-const addItem = async (item: string) => {
+const addItem = async (item) => {
   try {
     const docRef = doc(collection(firestore, 'inventory'), item)
     const docSnap = await getDoc(docRef)
@@ -71,7 +66,7 @@ const addItem = async (item: string) => {
   }
 }
 
-const removeItem = async (item: string) => {
+const removeItem = async (item) => {
   const docRef = doc(collection(firestore, 'inventory'), item)
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
@@ -151,17 +146,17 @@ return (
           <Box
             key={name}
             width="100%"
-            minHeight="150px"
+            minHeight="120px"
             display={'flex'}
             justifyContent={'space-between'}
             alignItems={'center'}
             bgcolor={'#f0f0f0'}
             paddingX={5}
           >
-            <Typography variant={'h3'} color={'#333'} textAlign={'center'}>
+            <Typography variant={'h4'} color={'#333'} textAlign={'center'}>
               {name.charAt(0).toUpperCase() + name.slice(1)}
             </Typography>
-            <Typography variant={'h3'} color={'#333'} textAlign={'center'}>
+            <Typography variant={'h4'} color={'#333'} textAlign={'center'} marginLeft={'5px'}>
               Quantity: {quantity}
             </Typography>
             <Button variant="contained" onClick={() => removeItem(name)}>

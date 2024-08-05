@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Box, Stack, Typography, Button, Modal, TextField } from '@mui/material'
-import { firestore } from '../../firebase'
+import { firestore } from '@/firebase'
 import {
   collection,
   doc,
@@ -39,7 +39,7 @@ export default function Home() {
 const updateInventory = async () => {
   const snapshot = query(collection(firestore, 'inventory'))
   const docs = await getDocs(snapshot)
-  const inventoryList = []
+  const inventoryList= []
   docs.forEach((doc) => {
     inventoryList.push({ name: doc.id, ...doc.data() })
   })
@@ -52,7 +52,7 @@ useEffect(() => {
 
 const addItem = async (item) => {
   try {
-    const docRef = doc(collection(firestore, 'inventory'), item)
+    const docRef = doc(collection(firestore, 'inventory'), item.toLowerCase())
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
       const { quantity } = docSnap.data()
@@ -67,7 +67,7 @@ const addItem = async (item) => {
 }
 
 const removeItem = async (item) => {
-  const docRef = doc(collection(firestore, 'inventory'), item)
+  const docRef = doc(collection(firestore, 'inventory'), item.toLowerCase())
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
     const { quantity } = docSnap.data()
@@ -146,17 +146,17 @@ return (
           <Box
             key={name}
             width="100%"
-            minHeight="120px"
+            minHeight="150px"
             display={'flex'}
             justifyContent={'space-between'}
             alignItems={'center'}
             bgcolor={'#f0f0f0'}
             paddingX={5}
           >
-            <Typography variant={'h4'} color={'#333'} textAlign={'center'}>
+            <Typography variant={'h3'} color={'#333'} textAlign={'center'}>
               {name.charAt(0).toUpperCase() + name.slice(1)}
             </Typography>
-            <Typography variant={'h4'} color={'#333'} textAlign={'center'} marginLeft={'5px'}>
+            <Typography variant={'h3'} color={'#333'} textAlign={'center'}>
               Quantity: {quantity}
             </Typography>
             <Button variant="contained" onClick={() => removeItem(name)}>
